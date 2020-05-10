@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class BlogTest extends TestCase
 {
-    use WithFaker,RefreshDatabase;
+ use WithFaker, RefreshDatabase;
  /** @test */
  public function a_user_can_create_a_blog()
  {
@@ -26,4 +26,19 @@ class BlogTest extends TestCase
   $this->get('/blogs')->assertSee($attributes['title']);
 
  }
+
+ /** @test */
+ public function a_blog_require_a_title()
+ {
+  $attributes = factory(\App\Blog::class)->raw(['title' => '']);
+  $this->post('/blogs', $attributes)->assertSessionHasErrors('title');
+ }
+
+/** @test */
+ public function a_Blog_require_a_description()
+ {
+  $attributes = factory(\App\Blog::class)->raw(['description' => '']);
+  $this->post('/blogs', $attributes)->assertSessionHasErrors('description');
+ }
+
 }

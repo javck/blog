@@ -37,8 +37,9 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         //驗證資料
+        $attributes = request()->validate(['title' => 'required','description' => 'required']);
         //儲存
-        Blog::create(request(['title','description']));
+        Blog::create($attributes);
         //轉址
         return redirect('/blogs');
     }
