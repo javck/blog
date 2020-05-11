@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::post('/blogs','BlogController@store');
 Route::get('/blogs','BlogController@index');
+Route::get('/blogs/{blog}','BlogController@show');

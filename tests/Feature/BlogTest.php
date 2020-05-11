@@ -41,4 +41,15 @@ class BlogTest extends TestCase
   $this->post('/blogs', $attributes)->assertSessionHasErrors('description');
  }
 
+ /** @test */
+ public function a_user_can_view_a_blog()
+ {
+  $this->withoutExceptionHandling();
+
+  $blog = factory(\App\Blog::class)->create();
+  $this->get($blog->path())
+   ->assertSee($blog->title)
+   ->assertSee($blog->description);
+ }
+
 }
