@@ -39,7 +39,8 @@ class BlogController extends Controller
         //驗證資料
         $attributes = request()->validate(['title' => 'required','description' => 'required']);
         //儲存
-        Blog::create($attributes);
+        //$attributes['owner_id'] = auth()->user()->id;
+        auth()->user()->blogs()->create($attributes);
         //轉址
         return redirect('/blogs');
     }

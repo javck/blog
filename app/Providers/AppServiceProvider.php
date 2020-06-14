@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(\Faker\Generator::class,function(){
+            return \Faker\Factory::create("zh_TW");
+        });
     }
 
     /**
@@ -23,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //全域
+        //view()->share('name','vincent');
+        view()->composer(['blogs.*'],function($view){
+            $view->with('name','vincent');
+        });
+
     }
 }
